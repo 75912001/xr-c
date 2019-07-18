@@ -69,8 +69,8 @@ std::string file_ini_t::get_str( const char* section, const char* name )
 {
 	auto it = this->section_map.find(section);
 	if (this->section_map.end() != it){
-		NAME_MAP& r = it->second;
-		NAME_MAP::iterator it_name = r.find(name);
+		std::map<std::string, std::string>& r = it->second;
+		auto it_name = r.find(name);
 		if (r.end() != it_name){
 			return it_name->second;
 		}
