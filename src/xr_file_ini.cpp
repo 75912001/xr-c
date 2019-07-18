@@ -27,7 +27,7 @@ bool __get_name_and_val( const std::string& line, std::string& name, std::string
 	return true;
 }
 //解析所有行
-void __parser( const std::vector<std::string>& line_vector, std::map<std::string, NAME_MAP>& section_map )
+void __parser( const std::vector<std::string>& line_vector, std::map<std::string, std::map<std::string, std::string>>& section_map )
 {
 	std::string cur_section_name;//当前章节名称
 	FOREACH(line_vector, it){

@@ -29,8 +29,7 @@ namespace xr{
 			return SUCC;
 		}
 	private:
-		typedef std::map<std::string, std::string> NAME_MAP;//key:名字, val:值
-		std::map<std::string, NAME_MAP> section_map;//key:节, val:NAME_MAP
+		std::map<std::string, std::map<std::string, std::string>> section_map;//key:节, val://key:名字, val:值
 		std::string get_str(const char* section, const char* name);
 	};
 }//end namespace xr

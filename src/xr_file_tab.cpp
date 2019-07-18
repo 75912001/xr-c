@@ -14,7 +14,7 @@ int __parser( const std::vector<std::string>& line_vector,
  			continue;
  		}
 		std::vector<std::string> val_vector;
-		cat_string(line, '	', val_vector);
+		xr::cat_string(line, '	', val_vector);
 		if (1 == row){
 			uint32_t col_cnt = 0;//列
 			FOREACH(val_vector, it_title){
