@@ -26,7 +26,7 @@ namespace xr{
 		//block:true and the connected fd will be set blocking, false and the fd will be set nonblocking.
 		//send_buf_len:发送缓冲大小
 		//rev_buf_len:接收缓冲大小
-		//return:0:the connected fd success.-1:fail
+		//return:the connected fd
 		static int connect( const char* ip, uint16_t port, int timeout,
 			bool block, uint32_t send_buf_len = 0, uint32_t rev_buf_len = 0 );
 

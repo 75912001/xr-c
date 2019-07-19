@@ -277,7 +277,7 @@ void log_t::write( int lvl, const char* fmt, ... )
 		return;
 	}
 
-	char log_buffer[LOG_BUF_SIZE];
+	static char log_buffer[LOG_BUF_SIZE];
 
 	int pos = snprintf(log_buffer, sizeof(log_buffer), "[%02d:%02d:%02d][%s]",
 		this->log_tm.tm_hour, this->log_tm.tm_min, this->log_tm.tm_sec, log_names[lvl]);

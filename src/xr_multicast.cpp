@@ -3,6 +3,7 @@
 #include "xr_net_util.h"
 
 namespace xr{
+mcast_t* g_mcast;
 int mcast_t::create(const char* ip, uint16_t port,
 	const char* in_if, const char* out_if)
 {

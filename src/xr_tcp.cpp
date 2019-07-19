@@ -12,12 +12,12 @@ int tcp_t::send( const void* data, int len )
 
 		if (unlikely(-1 == cur_len)) {
 			if (EAGAIN == errno || EWOULDBLOCK == errno) {
-				WARNI_LOG("send err [err_code:%u, err_msg:%s, fd:%d, len:%d, send_len:%d]",
-					errno, ::strerror(errno), this->fd, len, send_bytes);
+				WARNI_LOG("send err [err_code:%u, err_msg:%s, fd:%d, len:%d, send_len:%d, ip:%s, port:%u]",
+					errno, ::strerror(errno), this->fd, len, send_bytes, xr::net_util_t::ip2str(this->ip), this->port);
 				break;
 			} else {
-				WARNI_LOG("send err [err_code:%u, err_msg:%s, fd:%d, len:%d, send_len:%d]",
-					errno, ::strerror(errno), this->fd, len, send_bytes);
+				WARNI_LOG("send err [err_code:%u, err_msg:%s, fd:%d, len:%d, send_len:%d, , ip:%s, port:%u]",
+					errno, ::strerror(errno), this->fd, len, send_bytes, xr::net_util_t::ip2str(this->ip), this->port);
 				return FAIL;
 			}
 		}
@@ -60,14 +60,16 @@ int tcp_t::connect( const char* ip, uint16_t port,
 	peer.sin_family  = AF_INET;
 	peer.sin_port    = htons(port);
 	if (::inet_pton(AF_INET, ip, &peer.sin_addr) <= 0) {
-		return FAIL;
+		ALERT_LOG("inet_pton err [err_code:%u, err_msg:%s, ip:%s, port:%u]",
+			errno, ::strerror(errno), ip, port);
+		return INVALID_FD;
 	}
 
 	int fd = ::socket(PF_INET, SOCK_STREAM, 0);
 	if ( INVALID_FD == fd) {
 		ALERT_LOG("create socket err [err_code:%u, err_msg:%s, ip:%s, port:%u]",
 			errno, ::strerror(errno), ip, port);
-		return FAIL;
+		return INVALID_FD;
 	}
 
 	//设置发送与接收缓存大小
@@ -91,7 +93,7 @@ int tcp_t::connect( const char* ip, uint16_t port,
 		ALERT_LOG("connect err [err_code:%u, err_msg:%s, ip:%s, port:%u]", 
 			errno, ::strerror(errno), ip, port);
 		file_t::close_fd(fd);
-		return FAIL;
+		return INVALID_FD;
 	}
 
 	if (timeout > 0) {

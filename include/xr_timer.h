@@ -13,11 +13,11 @@ namespace xr{
 		struct timeval now;
 		struct tm now_tm;
 		//获取当前秒数
-		uint32_t now_sec(){
+		inline uint32_t now_sec(){
 			return (uint32_t)this->now.tv_sec;
 		}
 		//获取当前微秒数
-		uint32_t now_usec(){
+		inline uint32_t now_usec(){
 			return (uint32_t)this->now.tv_usec;
 		}
 		//扫描定时器列表,调用到期了的定时器的回调函数,ON_TIMER_FUN		

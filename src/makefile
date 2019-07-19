@@ -5,7 +5,7 @@ CC=g++ -std=c++11
 FLAG=-Wall -Wconversion -Wno-sign-conversion -fPIC -shared -O2 -g -o
 LOCAL_INCLUDE=../include
 
-INCLUDES=-I$(LOCAL_INCLUDE) -I/usr/include/libxml2
+INCLUDES=-I/usr/include/libxml2 -I$(LOCAL_INCLUDE)
 
 LINK=-lpthread -lxml2
 
@@ -18,6 +18,4 @@ $(EXE):
 	cp -f $@ $(XR_PATH)
 	cp -rf $(LOCAL_INCLUDE) $(XR_PATH)
 	rm $@
-clean:
-	rm $(EXE) *.o -f
 

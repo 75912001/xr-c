@@ -17,4 +17,5 @@ namespace xr{
 	private:
 		int mcast_join();
 	};
+	extern mcast_t* g_mcast;
 }//end namespace xr
