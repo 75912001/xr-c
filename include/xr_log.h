@@ -34,6 +34,8 @@
 	#include "xr_ring_buf.h"
 	#include "xr_semaphore.h"
 	#include "xr_thread.h"
+#else
+	#include "xr_util.h"
 #endif
 
 namespace xr{
@@ -171,12 +173,11 @@ namespace xr{
 
 /**
  * @def BOOT_LOG
- * @brief 输出程序启动日志到屏幕,并返回__state__
+ * @brief 输出程序启动日志到屏幕
  *        用法示例：BOOT_LOG(-1, "dlopen error, %s", error);
  */
 
 #define BOOT_LOG(__state__, fmt, args...) \
 	do { \
 		xr::g_log->boot(__state__, 0, fmt, ##args); \
-		return __state__; \
 	} while (0)

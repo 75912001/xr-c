@@ -20,32 +20,39 @@ int log_t::init( const char* dir, E_LOG_LEVEL lvl, const char* pre_name, uint32_
 	if(1440 < logtime){
 		::fprintf(stderr, "init log logtime too big=%u!!!\n", logtime);
 		BOOT_LOG(FAIL, "log [dir:%s, per_name:%s, interval_time:%u]", dir, pre_name, logtime);
+		return FAIL;
 	}
 
 	if (NULL == dir || (0 == ::strlen(dir))) {
 		::fprintf(stderr, "init log dir is NULL!!!\n");
-		BOOT_LOG(SUCC, "log [dir:%s, per_name:%s, interval_time:%u]", dir, pre_name, logtime);
+		BOOT_LOG(FAIL, "log [dir:%s, per_name:%s, interval_time:%u]", dir, pre_name, logtime);
+		return FAIL;
 	}
 
 	if ((lvl < E_LOG_LEVEL_EMERG) || (lvl >= E_LOG_LEVEL_MAX)) {
 		::fprintf(stderr, "init log error, invalid log level=%d\n", lvl);
 		BOOT_LOG(FAIL, "log [dir:%s, per_name:%s, interval_time:%u]", dir, pre_name, logtime);
+		return FAIL;
 	}
 
 	//必须可写
 	if (0 != ::access(dir, W_OK)) {
 		::fprintf(stderr, "access log dir %s error\n", dir);
 		BOOT_LOG(FAIL, "log [dir:%s, per_name:%s, interval_time:%u]", dir, pre_name, logtime);
+		return FAIL;
 	}
 #ifdef XR_USE_LOG_THREAD
 	if (SUCC != this->thread.semaphore.init()){
 		BOOT_LOG(FAIL, "log [dir:%s, per_name:%s, interval_time:%u]", dir, pre_name, logtime);
+		return FAIL;
 	}
 	if (SUCC != this->thread.ring_buf.create(RING_BUF_SIZE)){
 		BOOT_LOG(FAIL, "log [dir:%s, per_name:%s, interval_time:%u]", dir, pre_name, logtime);
+		return FAIL;
 	}
 	if (SUCC != this->thread.start(this)){
 		BOOT_LOG(FAIL, "log [dir:%s, per_name:%s, interval_time:%u]", dir, pre_name, logtime);
+		return FAIL;
 	}
 #endif
 	this->dir_name = dir;
@@ -89,7 +96,7 @@ void log_t::boot( int ok, int space, const char* fmt, ... )
 	::strcat(log_buffer, SUCC == ok ? BOOT_OK : BOOT_FAIL);
 	::printf("\r%s\n", log_buffer);
 
-	if (0 != ok){
+	if (SUCC != ok){
 		::exit(ok);
 	}
 }
@@ -315,14 +322,15 @@ log_fds_t::~log_fds_t()
 void log_thread_t::do_work_fn( void* data )
 {
 	log_t* log = (log_t*)data;
+	//std::cout << "000" << std::endl;
 	log->thread.semaphore.wait();
+	//sleep(1);
 	if (unlikely(log->shift_fd() < 0)) {
 		return;
 	}
-
 	static char log_buffer[RING_BUF_SIZE];
 	uint32_t n = this->ring_buf.read(log_buffer, sizeof(log_buffer));
-
+	//std::cout << n << std::endl;
 	HANDLE_EINTR(::write(log->fds.fd, log_buffer, n));
 }
 #endif

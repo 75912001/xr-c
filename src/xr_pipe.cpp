@@ -13,6 +13,7 @@ int pipe_t::create()
 {
 	if (FAIL == ::pipe(this->handles)){
 		BOOT_LOG(FAIL, "PIPE CREATE FAILED [err:%s]", strerror(errno));
+		return FAIL;
 	}
 
 	file_t::fcntl_add_flag(this->handles[E_PIPE_INDEX_RDONLY], O_NONBLOCK | O_RDONLY);
