@@ -322,15 +322,12 @@ log_fds_t::~log_fds_t()
 void log_thread_t::do_work_fn( void* data )
 {
 	log_t* log = (log_t*)data;
-	//std::cout << "000" << std::endl;
 	log->thread.semaphore.wait();
-	//sleep(1);
 	if (unlikely(log->shift_fd() < 0)) {
 		return;
 	}
 	static char log_buffer[RING_BUF_SIZE];
 	uint32_t n = this->ring_buf.read(log_buffer, sizeof(log_buffer));
-	//std::cout << n << std::endl;
 	HANDLE_EINTR(::write(log->fds.fd, log_buffer, n));
 }
 #endif
