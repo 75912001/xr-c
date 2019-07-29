@@ -139,6 +139,10 @@ namespace xr{
 			result.push_back(t);
 		}
 	};
+
+	static inline uint64_t atoll_safe(const char* str){
+		return NULL != str ? ::atoll(str) : 0;
+	}
 }
 
 //linux version code 大于等于 内核版本号
