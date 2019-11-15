@@ -120,7 +120,7 @@ void tcp_peer_t::close()
 void tcp_peer_t::init()
 {
 	this->fd = INVALID_FD;
-	this->fd_type = FD_TYPE_UNUSED;
+	this->fd_type = FD_TYPE::UNUSED;
 	this->port = 0;
 	this->ip = 0;
 	this->recv_buf.clear();
@@ -133,7 +133,7 @@ tcp_peer_t::~tcp_peer_t()
 	this->close();
 }
 
-void tcp_peer_t::update( int fd, E_FD_TYPE fd_type, const char* ip, uint16_t port )
+void tcp_peer_t::update( int fd, FD_TYPE fd_type, const char* ip, uint16_t port )
 {
 	this->init();
 	this->fd = fd;

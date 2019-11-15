@@ -56,7 +56,7 @@ tcp_srv_t::~tcp_srv_t()
 	if (NULL != this->tcp_peer){
 		for (int i = 0; i < this->cli_fd_value_max; i++) {
 			tcp_peer_t& peer = this->tcp_peer[i];
-			if (FD_TYPE_UNUSED == peer.fd_type){
+			if (FD_TYPE::UNUSED == peer.fd_type){
 				continue;
 			}
 			peer.close();

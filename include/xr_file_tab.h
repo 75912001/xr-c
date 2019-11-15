@@ -14,7 +14,6 @@
 
 namespace xr{
 	struct file_tab_t{
-	public:
 		//加载文件到内存
 		int load(const char* file_path);
 		//传入 id,name,icon
@@ -30,7 +29,7 @@ namespace xr{
 			return SUCC == this->get_val(col_name, line, ret) ? ret : def;
 		}
 		//获取指定的值
-		//returns:0:成功.其它:失败
+		//returns:SUCC:成功.FAIL:失败
 		//data(传出值)
 		template <typename T>
 		inline int get_val(const char* col_name, const std::vector<std::string>& line, T& data){

@@ -35,14 +35,14 @@ namespace xr{
 	class tcp_peer_t : public tcp_t
 	{
 	public:
-		E_FD_TYPE fd_type;
+		FD_TYPE fd_type;
 		active_buf_t recv_buf;
 		active_buf_t send_buf;
 		void* data;//用户数据
 		tcp_peer_t();
 		virtual ~tcp_peer_t();
 		//更新数据
-		void update(int fd, E_FD_TYPE fd_type, const char* ip, uint16_t port);
+		void update(int fd, FD_TYPE fd_type, const char* ip, uint16_t port);
 		void close();
 		void init();
 	};

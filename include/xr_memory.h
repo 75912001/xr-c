@@ -5,7 +5,7 @@
 #include "xr_util.h"
 
 namespace xr{
-	//自动无限放大,但是不会自动紧缩.
+	//自动无限放大,弹出全部数据后会释放内存空间.
 	//单线程操作
 	class active_buf_t{
 	public:
@@ -61,4 +61,9 @@ namespace xr{
 		}
 	};
 
+	//对象内存todo
+	
+	class object_buf_t{
+
+	};
 }//end namespace xr

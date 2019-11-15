@@ -5,16 +5,16 @@
 #include "xr_include.h"
 
 namespace xr{
-	enum E_FD_TYPE{
-		FD_TYPE_UNUSED = 0,
-		FD_TYPE_LISTEN = 1,
-		FD_TYPE_PIPE = 2,
-		FD_TYPE_CLI = 3,
-		FD_TYPE_MCAST = 4,
-		FD_TYPE_ADDR_MCAST = 5,
-		FD_TYPE_UDP = 6,
-		FD_TYPE_CONNECT = 7,
-		FD_TYPE_SVR = 8,
+	enum FD_TYPE{
+		UNUSED 		= 0,
+		LISTEN 		= 1,
+		PIPE 		= 2,
+		CLIENT 		= 3,
+		MCAST 		= 4,
+		ADDR_MCAST 	= 5,
+		UDP 		= 6,
+		CONNECT 	= 7,
+		SERVER 		= 8,
 	};
 
 	struct net_util_t{

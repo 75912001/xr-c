@@ -71,7 +71,7 @@ namespace xr{
 		virtual int create() = 0;
 		virtual int listen(const char* ip, uint16_t port, uint32_t listen_num, int bufsize) = 0;
 		virtual int run()=0;
-		virtual tcp_peer_t* add_connect(int fd, E_FD_TYPE fd_type, const char* ip, uint16_t port) = 0;
+		virtual tcp_peer_t* add_connect(int fd, FD_TYPE fd_type, const char* ip, uint16_t port) = 0;
 
 		//accept a tcp connection
 		//peer:used to return the protocol address of the connected peer process 
