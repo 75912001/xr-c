@@ -2,30 +2,37 @@
 #include "xr_log.h"
 #include "xr_util.h"
 
-namespace {
-	void* thread_fun(void* pdata){
-		xr::thread_t* pthread = (xr::thread_t *)pdata;
-		while (SUCC != pthread->do_work_begin()){
-		}
-		
-		while(pthread->is_run){
-			pthread->do_work_fn(pthread->data);
-		}
-
-		while (SUCC != pthread->do_work_end()){
-		}
-		return NULL;
+namespace
+{
+void *thread_fun(void *pdata)
+{
+	xr::thread_t *pthread = (xr::thread_t *)pdata;
+	while (SUCC != pthread->do_work_begin())
+	{
 	}
-}
 
-namespace xr{
-int thread_t::start( void* data)
+	while (pthread->is_run)
+	{
+		pthread->do_work_fn(pthread->data);
+	}
+
+	while (SUCC != pthread->do_work_end())
+	{
+	}
+	return NULL;
+}
+} // namespace
+
+namespace xr
+{
+int thread_t::start(void *data)
 {
 	this->data = data;
 
-	int r = ::pthread_create(&this->id, NULL, thread_fun, (void*)this);
+	int r = ::pthread_create(&this->id, NULL, thread_fun, (void *)this);
 
-	if (0 != r){
+	if (0 != r)
+	{
 		ALERT_LOG("[err_code:%d, err:%s]", errno, strerror(errno));
 		return r;
 	}
@@ -62,4 +69,4 @@ int thread_t::do_work_end()
 {
 	return SUCC;
 }
-}//end namespace xr
+} //end namespace xr

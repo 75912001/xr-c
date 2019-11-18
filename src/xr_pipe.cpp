@@ -3,7 +3,8 @@
 #include <xr_log.h>
 #include <xr_file.h>
 
-namespace xr{
+namespace xr
+{
 pipe_t::pipe_t()
 {
 	::memset(this->handles, 0, sizeof(this->handles));
@@ -11,7 +12,8 @@ pipe_t::pipe_t()
 
 int pipe_t::create()
 {
-	if (FAIL == ::pipe(this->handles)){
+	if (FAIL == ::pipe(this->handles))
+	{
 		BOOT_LOG(FAIL, "PIPE CREATE FAILED [err:%s]", strerror(errno));
 		return FAIL;
 	}
@@ -26,9 +28,10 @@ int pipe_t::create()
 	return SUCC;
 }
 
-int pipe_t::close( int mode )
+int pipe_t::close(int mode)
 {
-	if (mode < E_PIPE_INDEX_RDONLY || E_PIPE_INDEX_MAX <= mode){
+	if (mode < E_PIPE_INDEX_RDONLY || E_PIPE_INDEX_MAX <= mode)
+	{
 		return FAIL;
 	}
 	return file_t::close_fd(this->handles[mode]);
@@ -43,4 +46,4 @@ int pipe_t::write_fd()
 {
 	return this->handles[E_PIPE_INDEX_WRONLY];
 }
-}//end namespace xr
+} //end namespace xr
