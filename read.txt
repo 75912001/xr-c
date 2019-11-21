@@ -2,12 +2,9 @@
 cat /proc/version
 Linux version 3.10.0-957.el7.x86_64 (mockbuild@kbuilder.bsys.centos.org) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-36) (GCC) ) #1 SMP Thu Nov 8 23:39:32 UTC 2018
 
-
 #yum install libxml2-devel
 
-
 #export XR_PATH='/home/meng/xr'
-#export XR_SERVER_PATH='/home/meng/xr_server'
 
 #日志单条上限			81920		字节
 #日志环形缓冲大小		4194304		字节
