@@ -65,7 +65,7 @@ struct ring_buf_t
 
 		const uint32_t l = std::min(write_len, this->size - RING_BUF_MOD(this->in));
 		::memcpy(this->buffer + RING_BUF_MOD(this->in), data, l);
-		::memcpy(this->buffer, (unsigned char *)data + write_len, write_len - l);
+		::memcpy(this->buffer, (unsigned char *)data + l, write_len - l);
 		//smp_wmb就是一个写操作内存屏障，在它之前的写操作当必须在它之后的写操作前完成，
 		//如果没有这个写操作屏障，由于cpu的乱序机制，可能把更新索引操作提前，那么就会造成缓冲区的混乱了。
 		//smp_wmb();
